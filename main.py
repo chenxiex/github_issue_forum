@@ -69,6 +69,17 @@ def send_post_data(owner, repo, post_id, data_file):
             raise Exception(f"Error: {response.status_code} - {response.text}")
     return response.status_code
 
+def get_comment_data(owner, repo, post_id, comment_id):
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues/{post_id}/comments"
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        raise Exception(f"Error: {response.status_code} - {response.text}")
+    comments = response.json()
+    result = []
+    for i in range(int(comment_id), len(comments)):
+        result.append(comments[i]["body"])
+    return result
+
 if __name__ == "__main__":
     owner = "chenxiex"
     repo = "test"

@@ -1,1 +1,1 @@
-from .main import get_random_id, get_post_data, send_post_data
+from .main import get_random_id, get_post_data, send_post_data, get_comment_data
