@@ -32,7 +32,7 @@ def get_random_id(owner, repo):
     issue_id = random_issue["number"]
     return [issue_id, random_issue["comments"]]
 
-def get_post_data(owner, repo, post_id):
+def get_post_data(owner, repo, post_id, comment_id):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues/{post_id}"
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
@@ -46,12 +46,14 @@ def get_post_data(owner, repo, post_id):
         raise Exception(f"Error: {response.status_code} - {response.text}")
     comments = response.json()
     data_str += "Comments:\n"
+    j=0
     for i in comments:
-        if len(data_str) > 4096: 
+        if len(data_str) > 4096 or j >= comment_id: 
             break
         username = i["user"]["login"]
         body = i["body"]
         data_str += f"User @{username}: \n{body}\n\n"
+        j += 1
     return data_str
 
 def send_post_data(owner, repo, post_id, data_file):
