@@ -48,7 +48,7 @@ def get_post_data(owner, repo, post_id, comment_id):
     data_str += "Comments:\n"
     j=0
     for i in comments:
-        if len(data_str) > 4096 or j >= comment_id: 
+        if len(data_str) > 8192 or j >= int(comment_id): 
             break
         username = i["user"]["login"]
         body = i["body"]
