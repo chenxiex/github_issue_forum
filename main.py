@@ -5,7 +5,7 @@ import json
 import random
 import os
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 
 headers = {
     "Accept": "application/vnd.github+json",
