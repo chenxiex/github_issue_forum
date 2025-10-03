@@ -13,7 +13,7 @@ headers = {
     "Authorization": "Bearer " + GITHUB_TOKEN,
 }
 
-def get_random_id(owner, repo):
+def get_random_id(owner, repo) -> list[int]:
     url = f"https://api.github.com/repos/{owner}/{repo}/issues"
 
     response = requests.get(url, headers=headers)
@@ -29,7 +29,7 @@ def get_random_id(owner, repo):
     # 随机选择一个issue
     issue_index = random.randint(0, issues_num - 1)
     random_issue = data[issue_index]
-    issue_id = random_issue["number"]
+    issue_id = int(random_issue["number"])
     return [issue_id, random_issue["comments"]]
 
 def get_post_data(owner, repo, post_id, comment_id):
